@@ -1,0 +1,846 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"userResponse": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"updatedAt": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"_id",
+					"email"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"getReqUser": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"_id"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"saveReqUser": {
+				"properties": {
+					"email": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"updateReqUser": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"_id",
+					"email"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"roomResponse": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"users": {
+						"items": {},
+						"type": "array"
+					},
+					"isPrivate": {
+						"type": "boolean"
+					},
+					"title": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"updatedAt": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"_id",
+					"users",
+					"isPrivate",
+					"title"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"getReqRoom": {
+				"properties": {
+					"users": {
+						"items": {},
+						"type": "array"
+					}
+				},
+				"required": [
+					"users"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"saveReqRoom": {
+				"properties": {
+					"users": {
+						"items": {},
+						"type": "array"
+					},
+					"isPrivate": {
+						"type": "boolean"
+					},
+					"title": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"users",
+					"isPrivate",
+					"title"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"getRoomById": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"_id"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"updateReqRoom": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"users": {
+						"items": {},
+						"type": "array"
+					},
+					"title": {
+						"type": "string"
+					},
+					"isPrivate": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"_id",
+					"users",
+					"isPrivate"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"messageResponse": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"roomId": {
+						"type": "string"
+					},
+					"sender": {
+						"properties": {
+							"senderId": {
+								"type": "string"
+							},
+							"text": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"senderId",
+							"text"
+						],
+						"type": "object"
+					},
+					"isPrivate": {
+						"type": "boolean"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"updatedAt": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"_id",
+					"roomId",
+					"sender",
+					"isPrivate"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"getReqMessage": {
+				"properties": {
+					"users": {
+						"items": {},
+						"type": "array"
+					}
+				},
+				"required": [
+					"users"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"saveReqMessage": {
+				"properties": {
+					"roomId": {
+						"type": "string"
+					},
+					"sender": {
+						"properties": {
+							"senderId": {
+								"type": "string"
+							},
+							"text": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"senderId",
+							"text"
+						],
+						"type": "object"
+					},
+					"isPrivate": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"roomId",
+					"sender",
+					"isPrivate"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"updateReqMessage": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"roomId": {
+						"type": "string"
+					},
+					"sender": {
+						"properties": {
+							"senderId": {
+								"type": "string"
+							},
+							"text": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"senderId",
+							"text"
+						],
+						"type": "object"
+					},
+					"isPrivate": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"_id",
+					"roomId",
+					"sender",
+					"isPrivate"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "food-delivery-service",
+		"version": "1.0.0",
+		"license": {
+			"name": "MIT"
+		},
+		"contact": {
+			"name": "Muhammad Hamza"
+		}
+	},
+	"paths": {
+		"/user/getUser": {
+			"post": {
+				"operationId": "GetUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/userResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"user"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/getReqUser"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/saveUser": {
+			"post": {
+				"operationId": "SaveUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/userResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"user"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/saveReqUser"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/updateUser": {
+			"put": {
+				"operationId": "UpdateUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/userResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"user"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/updateReqUser"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/deleteUser/{_id}": {
+			"delete": {
+				"operationId": "DeleteUser",
+				"responses": {
+					"200": {
+						"description": "data deleted",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/userResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"user"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/user/getAllUsers": {
+			"get": {
+				"operationId": "GetAllUsers",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/userResponse"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"user"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/room/getRoom": {
+			"post": {
+				"operationId": "GetRoom",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/roomResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"room"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/getReqRoom"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/room/saveRoom": {
+			"post": {
+				"operationId": "SaveRoom",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/roomResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"room"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/saveReqRoom"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/room/saveGroupRoom": {
+			"post": {
+				"operationId": "SaveGroupRoom",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/roomResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"room"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/saveReqRoom"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/room/getRoomById": {
+			"post": {
+				"operationId": "GetRoomById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/roomResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"room"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/getRoomById"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/room/updateRoom": {
+			"put": {
+				"operationId": "UpdateRoom",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/roomResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"room"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/updateReqRoom"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/room/deleteRoom/{_id}": {
+			"delete": {
+				"operationId": "DeleteRoom",
+				"responses": {
+					"200": {
+						"description": "data deleted",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/roomResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"room"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/room/getAllRooms": {
+			"get": {
+				"operationId": "GetAllRooms",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/roomResponse"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"room"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/message/getMessage": {
+			"post": {
+				"operationId": "GetMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/messageResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"message"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/getReqMessage"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/message/saveMessage": {
+			"post": {
+				"operationId": "SaveMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/messageResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"message"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/saveReqMessage"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/message/updateMessage": {
+			"put": {
+				"operationId": "UpdateMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/messageResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"message"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/updateReqMessage"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/message/deleteMessage/{_id}": {
+			"delete": {
+				"operationId": "DeleteMessage",
+				"responses": {
+					"200": {
+						"description": "data deleted",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/messageResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"message"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/message/getAllMessages": {
+			"post": {
+				"operationId": "GetAllMessages",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/messageResponse"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"message"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
