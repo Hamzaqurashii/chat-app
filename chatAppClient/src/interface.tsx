@@ -34,6 +34,12 @@ export interface RouteParams {
 export interface IRoomUser {
   user?: string;
 }
+
+export interface ITyping {
+  room: string;
+  user: string;
+  typing: boolean;
+}
 export interface ICreateRoom {
   title: string;
   users: string[];

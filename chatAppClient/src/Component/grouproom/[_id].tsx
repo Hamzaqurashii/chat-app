@@ -1,5 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { IJoinOrLeft, IMessage, RouteParams } from "../../interface";
+import React, {
+  ChangeEvent,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { IJoinOrLeft, IMessage, ITyping, RouteParams } from "../../interface";
 import io from "socket.io-client";
 import { url } from "../../endpoint";
 import AuthContext from "../../auth-store";
@@ -91,7 +97,7 @@ function GroupChatBox() {
         setMessages(message.reverse());
       });
 
-      socket.on("userTyping", (msg: any) => {
+      socket.on("userTyping", (msg: ITyping) => {
         setWhoIstyping(msg.user);
       });
 
@@ -120,9 +126,9 @@ function GroupChatBox() {
       };
     }
   }, [socket, room]);
-  let typingTimer: any;
+  let typingTimer: ReturnType<typeof setTimeout> | undefined;
 
-  const handleTyping = (event: any) => {
+  const handleTyping = (event: ChangeEvent<HTMLInputElement>) => {
     clearTimeout(typingTimer);
     if (event.target.value !== "") {
       if (!isTyping) {
@@ -139,7 +145,7 @@ function GroupChatBox() {
     }
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     handleTyping(event);
   };
 
