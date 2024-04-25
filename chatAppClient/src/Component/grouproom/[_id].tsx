@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { IJoinOrLeft, IMessage, RouteParams } from "../../interface";
 import io from "socket.io-client";
 import { url } from "../../endpoint";
@@ -9,8 +9,9 @@ import { getAllMessageRequest, getRoomByIdRequest } from "../../request";
 function GroupChatBox() {
   const { id } = useParams<keyof RouteParams>() as RouteParams;
   const [messages, setMessages] = useState<IMessage[]>([]);
-  const [newMessage, setNewMessage] = useState("");
+  const newMessage = useRef<HTMLInputElement>(null);
   const [room, setRoom] = useState(null);
+  const [isTyping, setIsTyping] = useState(false);
   const [whoIsTyping, setWhoIstyping] = useState<string | null>(null);
   const [isRoom, setIsRoom] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -29,14 +30,15 @@ function GroupChatBox() {
 
     const message = {
       roomId: room,
-      sender: { text: newMessage, senderId: auth._id },
+      sender: { text: newMessage.current?.value ?? "", senderId: auth._id },
     };
 
     socket.emit("chat message", {
       message: message,
       roomId: room,
     });
-    setNewMessage("");
+
+    if (newMessage.current) newMessage.current.value = "";
   };
 
   useEffect(() => {
@@ -89,8 +91,8 @@ function GroupChatBox() {
         setMessages(message.reverse());
       });
 
-      socket.on("userTyping", (msg: string) => {
-        setWhoIstyping(msg);
+      socket.on("userTyping", (msg: any) => {
+        setWhoIstyping(msg.user);
       });
 
       socket.on("User Joined", (data: IJoinOrLeft) => {
@@ -106,21 +108,46 @@ function GroupChatBox() {
         setIsVisible(false);
       }, 3000);
 
-      socket.on("userStoppedTyping", () => {
-        setWhoIstyping(null);
-      });
+      // socket.on("userStoppedTyping", () => {
+      //   setWhoIstyping(null);
+      // });
 
       return () => {
         socket.off("userTyping");
         socket.off("User Joined");
-        socket.off("userStoppedTyping");
         socket.disconnect();
         clearTimeout(timer);
       };
     }
   }, [socket, room]);
+  let typingTimer: any;
 
-  // Run ef
+  const handleTyping = (event: any) => {
+    clearTimeout(typingTimer);
+    if (event.target.value !== "") {
+      if (!isTyping) {
+        socket.emit("typing", { room, user: auth._id, typing: true });
+        setIsTyping(true);
+      }
+      typingTimer = setTimeout(() => {
+        socket.emit("typing", { room, user: null, typing: false });
+        setIsTyping(false);
+      }, 1000); // Adjust the duration as needed
+    } else {
+      socket.emit("typing", { room, user: null, typing: false });
+      setIsTyping(false);
+    }
+  };
+
+  const handleChange = (event: any) => {
+    handleTyping(event);
+  };
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(typingTimer);
+    };
+  }, [isTyping]);
 
   return (
     <div className="h-screen">
@@ -193,17 +220,18 @@ function GroupChatBox() {
         <form className="p-4" onSubmit={handleSendMessage}>
           <input
             type="text"
-            value={newMessage}
+            // value={newMessage}
             id="input-field"
             onChange={(event) => {
-              setNewMessage(event.target.value);
+              handleChange(event);
             }}
-            onFocus={() => {
-              socket.emit("typing", { room, user: auth._id });
-            }}
-            onBlur={() => {
-              socket.emit("stopTyping", { room });
-            }}
+            ref={newMessage}
+            // onFocus={() => {
+            //   socket.emit("typing", { room, user: auth._id });
+            // }}
+            // onBlur={() => {
+            //   socket.emit("stopTyping", { room });
+            // }}
             className="w-full p-2 pl-10 border border-black mb-2 text-sm text-gray-700"
             placeholder="Type a message..."
           />

@@ -27,8 +27,11 @@ export const getStopTyping = async (socket: any) => {
 };
 export const getTyping = async (socket: any) => {
   socket.on("typing", (data: any) => {
+    console.log(data);
     // Broadcast to other users in the same room that this user is typing
-    socket.to(data.room).emit("userTyping", data.user);
+    socket
+      .to(data.room)
+      .emit("userTyping", { user: data.user, typing: data.typing });
   });
 };
 export const getJoinRoom = async (socket: any) => {

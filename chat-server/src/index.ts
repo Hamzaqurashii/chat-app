@@ -12,6 +12,10 @@ import {
 export const { io, server } = startServer();
 
 io.on("connection", (socket) => {
+
+  socket.on("ttyping", (msg:any)=>{
+    console.log(msg,'hello typing')
+  })
   getChat(socket);
 
   getJoinRoom(socket);
